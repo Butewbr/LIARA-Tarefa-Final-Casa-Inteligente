@@ -2,9 +2,23 @@
 
 /* Initial beliefs and rules */
 
-temperatura_de_preferencia(jonas,25).
+temperatura_de_preferencia(bernardo,24).
+temperatura_ambiente(30).
+
+// Se a temperatura ambiente (TA) for maior que a temperatura de preferência (TP), reduz a temperatura em C graus
+reduzir_temperatura(C) :- temperatura_ambiente(TA) & temperatura_de_preferencia(bernardo,TP) & TA > TP & C = TA - TP.
+// Se a temperatura ambiente (TA) for menor que a temperatura de preferência (TP), aumenta a temperatura em C graus
+aumentar_temperatura(C) :- temperatura_ambiente(TA) & temperatura_de_preferencia(bernardo,TP) & TP > TA & C = TP - TA.
 
 /* Initial goals */
+
+// O objetivo inicial do ar condicionado com isso é mostrar quantos graus devem ser alterados
+!mostrar_temp.
+
+// Se rodar a redução de temperatura, printa quanto vai reduzir.
++!mostrar_temp: reduzir_temperatura(C) <- .print("Reduzir em ", C).
+// Se rodar a aumento de temperatura, printa quanto vai aumentar
++!mostrar_temp: aumentar_temperatura(C) <- .print("Aumentar em ", C).
 
 !inicializar_AC.
 
@@ -16,17 +30,18 @@ temperatura_de_preferencia(jonas,25).
 
 +alterado : temperatura_ambiente(TA) & temperatura_ac(TAC)
   <-  .drop_intention(climatizar);
-  	  .print("Houve intera��o com o AC");
+  	  .print("Houve interação com o AC");
   	  .print("Temperatura Ambiente: ", TA);
  	  .print("Temperatura Desejada: ", TAC);
   	  !!climatizar.
       
 +closed  <-  .print("Close event from GUIInterface").
    
+	// se as condições forem verdadeiras, vai executar este plano, senão vai para o próximo
  +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) 
  			& temperatura_de_preferencia(User,TP) & TP \== TD & ligado(false)
  	<-  definir_temperatura(TP);
- 		.print("Definindo temperatura baseado na prefer�ncia do usu�rio ", User);
+ 		.print("Definindo temperatura baseado na preferência do usuário ", User);
  		.print("Temperatura: ", TP).
  	
  +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) & ligado(false)
@@ -56,7 +71,7 @@ temperatura_de_preferencia(jonas,25).
  		.print("Temperatura Desejada: ", TAC).
 
  +!climatizar 
- 	<- 	.print("Nao foram implementadas outras opcoes");
+ 	<- 	.print("Não foram implementadas outras opções");
  		.print("TEMPERATURA REGULARIZADA").
 
 
