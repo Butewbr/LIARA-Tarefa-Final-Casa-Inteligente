@@ -23,6 +23,14 @@
   <-  .print("Alguém mexeu na FECHADURA e DESTRANCOU a porta!").
       
 +closed  <-  .print("Close event from GUIInterface").
+
++!destrancar_porta: fechada(true) & trancada(true)
+ <- .print("Destrancando a porta!");
+	destrancar.
+
++!abrir_porta: fechada(true)
+ <- .print("Abrindo a porta!");
+	abrir.
    
 +!fechar_porta: fechada(true)
  	<-  .print("Porta Fechada!");
