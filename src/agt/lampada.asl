@@ -3,8 +3,7 @@
 
 +!inicializar_lampada
   <- 	makeArtifact("lampada_quarto","artifacts.Lampada",[],D);
-  	   	focus(D);
-  	   	!ligar_lampada.
+  	   	focus(D).
   	   	
 +interuptor 
   <-  !!verificar_lampada.

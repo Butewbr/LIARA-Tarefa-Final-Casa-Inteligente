@@ -3,8 +3,7 @@
 
 +!inicializar_cortina
   <- 	makeArtifact("cortina_quarto","artifacts.Cortina",[],D);
-  	   	focus(D);
-  	   	!abrir_cortina.
+  	   	focus(D).
   	   	
 +ajuste_cortina 
   <-  !!verificar_ajuste.
