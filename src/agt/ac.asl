@@ -5,6 +5,9 @@
 temperatura_de_preferencia(bernardo,24).
 temperatura_ambiente(30).
 
++usuario_suspeito(Suspeito) : true.
++usuario_atual(User) : true.
+
 +!inicializar_AC
   <- 	makeArtifact("ac_quarto","artifacts.AC",[],D);
   	   	focus(D);
@@ -21,21 +24,19 @@ temperatura_ambiente(30).
 +closed  <-  .print("Close event from GUIInterface").
    
  +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) 
- 			& temperatura_de_preferencia(User,TP) & usuario_atual(CurrentUser) & User == CurrentUser & TP \== TD & ligado(false)
+ 			& temperatura_de_preferencia(User,TP) & TP \== TD & ligado(false)
  	<-  definir_temperatura(TP);
- 		.print("Definindo temperatura baseado na preferência do usuário atual.", User);
+ 		.print("Definindo temperatura baseado na preferência do usuário atual: ", User);
  		.print("Temperatura: ", TP).
-
- +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) 
- 			& temperatura_de_preferencia(User,TP) & usuario_atual(CurrentUser) & User \== CurrentUser & TP \== TD & ligado(false)
- 	<-  definir_temperatura(TP);
- 		.print("Usuário desconhecido. Definindo temperatura como 45 graus.");
- 		.print("Temperatura: ", 45).
  	
+ +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) & TAC == 355 & ligado(false)
+ 	<-  .print("Usuário suspeito! Iniciando HELL MODE!");
+ 		.print("Temperatura: ", TAC).
+
  +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) & ligado(false)
  	<-  .print("Usando ultima temperatura");
  		.print("Temperatura: ", TAC).
- 		
+
  		
  +!climatizar: temperatura_ambiente(TA) & temperatura_ac(TAC) & TA \== TAC & ligado(false)
  	<-   ligar;
