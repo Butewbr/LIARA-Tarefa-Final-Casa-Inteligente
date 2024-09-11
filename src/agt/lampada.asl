@@ -19,3 +19,7 @@
  +!ligar_lampada
  	<-  ligar;
  		.print("Liguei a Lâmpada!").
+
+ +!desligar_lampada
+ 	<-  desligar;
+ 		.print("Liguei a Lâmpada!").

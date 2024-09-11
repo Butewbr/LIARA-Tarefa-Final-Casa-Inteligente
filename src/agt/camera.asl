@@ -38,6 +38,15 @@ pessoas_confiaveis(["bernardo", "nelson"]).
       .send(cortina, achieve, abrir_cortina);
       .send(fechadura, achieve, fechar_porta).
 
+  +!enviar_pessoa_confiavel: pessoa_presente(P) & local(L) & L == "fora"
+  <-  .print("Enviando aos outros agentes a informação da pessoa ", P, " saiu para ", L);
+      .send(ar_condicionado, achieve, desligar_ac);
+      .send(ar_condicionado, tell, usuario_atual(P));
+      .send(lampada, achieve, desligar_lampada);
+      .send(cortina, achieve, fechar_cortina);
+      .send(fechadura, achieve, fechar_porta);
+      .send(fechadura, achieve, trancar_porta).
+
   // Se uma pessoa suspeita está na frente da casa, a porta será fechada e trancada
   +!enviar_pessoa_suspeita: pessoa_presente(P) & local(L) & L == "frente"
   <-  .print("Enviando aos outros agentes a informação da pessoa suspeita ", P, " em ", L);

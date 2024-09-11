@@ -22,6 +22,13 @@ temperatura_ambiente(30).
 		!definir_temperatura;
   	   	!!climatizar.
 
++!desligar_ac : ligado(true)
+	 <- .print("Desligando ar condicionado.");
+	 	desligar.
+
++!desligar_ac : ligado(false)
+	 <- .print("Ar condicionado já desligado!").
+
 +!ligar_ac_hell_mode : ligado(true)
 	<- .print("Usuário suspeito! Iniciando HELL MODE!");
 		-temperatura_ac;
