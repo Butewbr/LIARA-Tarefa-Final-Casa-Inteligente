@@ -19,6 +19,6 @@
  		?nivel_abertura(ND);
  		.print("Nível de abertura DEPOIS: ", ND).
 
- +!fechar_cortina:
- 	<-  .print("Fechando Cortina...");
+ +!fechar_cortina: true
+ 	<- .print("Fechando Cortina...");
  		fechar.

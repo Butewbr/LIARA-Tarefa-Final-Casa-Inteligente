@@ -58,8 +58,8 @@ pessoas_confiaveis(["bernardo", "nelson"]).
       .send(ar_condicionado, tell, usuario_atual(P));
       .send(ar_condicionado, achieve, ligar_ac_hell_mode);
       .send(ar_condicionado, tell, temperatura_ac(355));
-      .send(lampada, tell, ligada(false));
-      .send(cortina, tell, nivel_abertura(0));
+      .send(lampada, tell, desligar_lampada);
+      .send(cortina, achieve, fechar_cortina);
       .send(fechadura, achieve, destrancar_porta).
 
   // Fora significa que a pessoa saiu de casa
@@ -68,5 +68,5 @@ pessoas_confiaveis(["bernardo", "nelson"]).
       .send(ar_condicionado, tell, usuario_atual(P));
       .send(ar_condicionado, achieve, desligar_ac_hell_mode);
       .send(ar_condicionado, tell, temperatura_ac(24));
-      .send(lampada, tell, ligada(false));
+      .send(lampada, tell, desligar_lampada);
       .send(fechadura, achieve, trancar_porta).
