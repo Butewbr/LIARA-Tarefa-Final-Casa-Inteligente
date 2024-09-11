@@ -24,14 +24,24 @@ temperatura_ambiente(30).
 
 +!ligar_ac_hell_mode : ligado(true)
 	<- .print("Usuário suspeito! Iniciando HELL MODE!");
+		-temperatura_ac;
 		definir_temperatura(355);
 	   !!climatizar.
 
 +!ligar_ac_hell_mode : ligado(false)
 	 <- ligar;
 	    .print("Usuário suspeito! Iniciando HELL MODE!");
+		-temperatura_ac;
 		definir_temperatura(355);
   	   	!!climatizar.
+
++!desligar_ac_hell_mode : ligado(true) & temperatura_ambiente(TA) & temperatura_ac(TAC)
+	 <- .print("Usuário suspeito foi embora! Desligando HELL MODE!");
+	 	.print("temperatura atual ar condicionado: ", TAC);
+		-temperatura_ac(TAC);
+		+temperatura_ac(TA);
+		.drop_intention(climatizar);
+  	   	desligar.
 
 +alterado : temperatura_ambiente(TA) & temperatura_ac(TAC)
   <-  .drop_intention(climatizar);
@@ -44,13 +54,15 @@ temperatura_ambiente(30).
    
  +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) 
  			& temperatura_de_preferencia(User,TP) & TP \== TD & ligado(false)
- 	<-  definir_temperatura(TP);
+ 	<-  -temperatura_ac(TAC);
+		definir_temperatura(TP);
  		.print("Definindo temperatura baseado na preferência do usuário atual: ", User);
  		.print("Temperatura: ", TP).
 
 +!definir_temperatura: temperatura_ambiente(TA) & temperatura_ac(TAC) 
  			& temperatura_de_preferencia(User,TP) & TP \== TD & ligado(true)
- 	<-  definir_temperatura(TP);
+ 	<-  -temperatura_ac(TAC);
+		definir_temperatura(TP);
  		.print("Definindo temperatura baseado na preferência do usuário atual: ", User);
  		.print("Temperatura: ", TP).
 
@@ -60,7 +72,7 @@ temperatura_ambiente(30).
 
  		
  +!climatizar: temperatura_ambiente(TA) & temperatura_ac(TAC) & TA \== TAC & ligado(false)
- 	<-   ligar;
+ 	<-  ligar;
  		.print("Ligando AC");
  		.print("Temperatura Ambiente: ", TA);
  		.print("Temperatura Desejada: ", TAC);

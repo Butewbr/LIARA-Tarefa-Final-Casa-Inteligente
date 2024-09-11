@@ -28,6 +28,9 @@
  <- .print("Destrancando a porta!");
 	destrancar.
 
++!destrancar_porta: true
+ <- .print("Porta já está aberta!").
+
 +!abrir_porta: fechada(true)
  <- .print("Abrindo a porta!");
 	abrir.

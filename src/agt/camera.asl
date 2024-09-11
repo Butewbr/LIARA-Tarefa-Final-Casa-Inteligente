@@ -11,8 +11,8 @@ pessoas_confiaveis(["bernardo", "nelson"]).
       
 +closed  <-  .print("Close event from GUIInterface").
    
- +!verificar_pessoa: pessoa_presente(P) & local(L)
- 	<-  .print("Pessoa: ", P, " reconhecida no local ", L, " da casa.").
+  +!verificar_pessoa: pessoa_presente(P) & local(L)
+ 	<-  .print("Pessoa: ", P, " reconhecida no local ", L, " da casa.");
       !analisar_pessoa.
 
   +!analisar_pessoa: pessoa_presente(P) & local(L) & pessoas_confiaveis(List) & .member(P, List)
@@ -52,3 +52,12 @@ pessoas_confiaveis(["bernardo", "nelson"]).
       .send(lampada, tell, ligada(false));
       .send(cortina, tell, nivel_abertura(0));
       .send(fechadura, achieve, destrancar_porta).
+
+  // Fora significa que a pessoa saiu de casa
+  +!enviar_pessoa_suspeita: pessoa_presente(P) & local(L) & L == "fora"
+  <-  .print("Enviando aos outros agentes a informação da pessoa suspeita ", P, " saiu para ", L);
+      .send(ar_condicionado, tell, usuario_atual(P));
+      .send(ar_condicionado, achieve, desligar_ac_hell_mode);
+      .send(ar_condicionado, tell, temperatura_ac(24));
+      .send(lampada, tell, ligada(false));
+      .send(fechadura, achieve, trancar_porta).
