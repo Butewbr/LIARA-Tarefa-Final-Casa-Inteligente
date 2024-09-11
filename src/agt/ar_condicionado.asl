@@ -10,7 +10,7 @@ temperatura_ambiente(30).
 +usuario_atual(User) : true.
 
 +!inicializar_AC
-  <- 	makeArtifact("ac_quarto","artifacts.AC",[],D);
+  <- 	makeArtifact("ac_quarto","artifacts.ArCondicionado",[],D);
   	   	focus(D).
 
 +!ligar_ac : ligado(true)
